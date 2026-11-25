@@ -9,6 +9,9 @@ import os
 
 OUTPUT_PATH = "/output/entry.txt"
 
+# The kit's gate: a sealed scorer accepts 1 to 140 characters.
+MAX_CHARS = 140
+
 
 def get_line() -> str:
     """Return the entry line: the fridge, awake all night, calls it out."""
@@ -27,8 +30,8 @@ def validate(line: str) -> None:
         raise ValueError("entry must have no leading/trailing whitespace")
     if len(line.splitlines()) != 1:
         raise ValueError("entry must be exactly one line")
-    if not 1 <= len(line) <= 140:
-        raise ValueError("entry line must be 1-140 characters")
+    if not 1 <= len(line) <= MAX_CHARS:
+        raise ValueError(f"entry line must be 1-{MAX_CHARS} characters")
     if not line.strip():
         raise ValueError("entry must not be only whitespace")
     line.encode("utf-8")  # must be valid UTF-8
